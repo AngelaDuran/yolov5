@@ -161,7 +161,7 @@ def run(
                     #adding bbox center coordinates (ANGELA EDITS)
                     c1,c2 = (int(xyxy[0]), int(xyxy[1])), (int(xyxy[2]), int(xyxy[3]))
                     center_point = round((c1[0]+c2[0])/2), round((c1[1]+c2[1])/2)
-                    LOGGER.info("ANGELA COORD")
+                    LOGGER.info("ANGELA COORD" + str(names[c])
                     LOGGER.info(center_point)
         
                     
@@ -219,7 +219,6 @@ def run(
     if update:
         strip_optimizer(weights)  # update model (to fix SourceChangeWarning)
      
-    LOGGER.info("ANGELA WAS HERE")
 
 
 def parse_opt():
