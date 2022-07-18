@@ -157,6 +157,14 @@ def run(
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
+                    
+                    #adding bbox center coordinates (ANGELA EDITS)
+                    c1,c2 = (int(xyxy[0]), int(xyxy[1])), (int(xyxy[2]), int(xyxy[3]))
+                    center_point = round((c1[0]+c2[0])/2), round((c1[1]+c2[1])/2)
+                    LOGGER.info("ANGELA COORD")
+                    LOGGER.info(center_point)
+        
+                    
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                         line = (cls, *xywh, conf) if save_conf else (cls, *xywh)  # label format
