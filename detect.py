@@ -161,7 +161,7 @@ def run(
                     #adding bbox center coordinates (ANGELA EDITS)
                     c1,c2 = (int(xyxy[0]), int(xyxy[1])), (int(xyxy[2]), int(xyxy[3]))
                     center_point = round((c1[0]+c2[0])/2), round((c1[1]+c2[1])/2)
-                    LOGGER.info(center_point)
+                    #LOGGER.info(center_point)
         
                     
                     if save_txt:  # Write to file
@@ -173,6 +173,11 @@ def run(
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+                    
+                        #Logging info to print display
+                        LOGGER.info(label)
+                        LOGGER.info(center_point)
+                        
                         annotator.box_label(xyxy, label, color=colors(c, True))
                     if save_crop:
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
