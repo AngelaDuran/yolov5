@@ -1,3 +1,5 @@
+#Only really need this file if you aren't running in Google Colab, run before detect.py
+
 #Run this file to get packages working
 import torch
 import utils
