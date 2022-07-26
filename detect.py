@@ -45,6 +45,13 @@ from utils.general import (LOGGER, check_file, check_img_size, check_imshow, che
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
 
+coordinateData = {
+"Object": [],
+"Lx": [],
+"Ly": [],
+"Rx": [],
+"Ry": []
+}
 
 @torch.no_grad()
 def run(
@@ -162,7 +169,7 @@ def run(
                     c1,c2 = (int(xyxy[0]), int(xyxy[1])), (int(xyxy[2]), int(xyxy[3]))
                     center_point = round((c1[0]+c2[0])/2), round((c1[1]+c2[1])/2)
                     #LOGGER.info(center_point)
-        
+
                     
                     if save_txt:  # Write to file
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
@@ -173,15 +180,32 @@ def run(
                     if save_img or save_crop or view_img:  # Add bbox to image
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
+
+                        labelDict = label.split()[0]
+                        
+                        #coordinateData is the dictionary holding all data, assumes two images are processed
+
+                        if labelDict not in coordinateData['Object']:
+                            coordinateData['Object'].append(labelDict) #add new item to dict
+
+                            coordinateData['Lx'].append(round((c1[0]+c2[0])/2))
+                            coordinateData['Ly'].append(round((c1[1]+c2[1])/2))
+                            coordinateData['Rx'].append(-100) #-100 means NA
+                            coordinateData['Ry'].append(-100)
+                        else:
+                            coordinateData['Rx'][coordinateData['Object'].index(labelDict)] = round((c1[0]+c2[0])/2)
+                            coordinateData['Ry'][coordinateData['Object'].index(labelDict)] = round((c1[1]+c2[1])/2)
+
                     
                         #Logging info to print display
-                        LOGGER.info(label)
-                        LOGGER.info(center_point)
+                        LOGGER.info(f'{label}: ({round((c1[0]+c2[0])/2)}, {round((c1[1]+c2[1])/2)}, z)') #Put z calculation here!
+                        
+                        #may want to take these values and store in global data container
                         
                         annotator.box_label(xyxy, label, color=colors(c, True))
                     if save_crop:
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
-
+    
             # Stream results
             im0 = annotator.result()
             if view_img:
