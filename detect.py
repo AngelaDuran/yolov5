@@ -191,7 +191,7 @@ def run(
                             coordinateData['Lx'].append(round((c1[0]+c2[0])/2))
                             coordinateData['Ly'].append(round((c1[1]+c2[1])/2))
                             coordinateData['Rx'].append(-100) #-100 means NA
-                            coordinateData['Ry'].append(-100)
+                            coordinateData['Ry'].append(-100) #-100 means NA
                         else:
                             coordinateData['Rx'][coordinateData['Object'].index(labelDict)] = round((c1[0]+c2[0])/2)
                             coordinateData['Ry'][coordinateData['Object'].index(labelDict)] = round((c1[1]+c2[1])/2)
@@ -246,6 +246,23 @@ def run(
         LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}{s}")
     if update:
         strip_optimizer(weights)  # update model (to fix SourceChangeWarning)
+
+
+    #[Angela Edits] Data Cleaning, removing -100
+    while -100 in coordinateData['Rx']:
+        x = coordinateData['Rx'].index(-100)
+
+        coordinateData['Object'].pop(x)
+        coordinateData['Lx'].pop(x)
+        coordinateData['Ly'].pop(x)
+        coordinateData['Rx'].pop(x)
+        coordinateData['Ry'].pop(x)
+
+
+
+
+    LOGGER.info("Dictionary Bellow")
+    LOGGER.info(coordinateData)
      
 
 
