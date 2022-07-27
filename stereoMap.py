@@ -44,7 +44,7 @@ def depthFOV(leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, sensor_v
     objectRy = data.get("Ry")[i]
 
     x = leftCamPos+(z/np.tan(alpha))
-    #x2 = rightCamPos-(d/np.tan(beta)) # confirmation with other angle
+    #x2 = rightCamPos-(z/np.tan(beta)) # confirmation with other angle
 
     angleVL = np.arctan((midLine_v-objectLy)*v_FOV/midLine_v)
     angleVR = np.arctan((midLine_v-objectRy)*v_FOV/midLine_v)
@@ -55,4 +55,51 @@ def depthFOV(leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, sensor_v
     #print("\tX2: " + str(x2))
 
     print("\ty: " + str(y))
+    print("")
+
+    
+
+### Ruler Method
+def depthRuler(leftCamPos, rightCamPos, camHeight, h_rulerDist, v_rulerDist, pixelsToCm_h, pixelsToCm_v):
+  # positions and distances in meters
+  
+  # "Magic" conversion numbers
+  magicNum_h = pixelsToCm_h*100*h_rulerDist
+  magicNum_v = pixelsToCm_v*100*v_rulerDist
+  
+  # Regular focal length
+  h_FOV = np.arctan(sensor_h/(2*focalLength))
+  v_FOV = np.arctan(sensor_v/(2*focalLength))
+
+  l = rightCamPos-leftCamPos # Camera separation
+  
+  leftImg = cv2.imread('/content/left.jpg', 0)
+  rightImg = cv2.imread('/content/right.jpg', 0)
+  
+  leftImg.shape
+  midLine_h = leftImg.shape[1]/2
+
+  for i in range(len(data.get("Object"))):
+    objectLx = data.get("Lx")[i]
+    objectRx = data.get("Rx")[i]
+
+    alpha = np.pi/2-np.arctan((objectLx-midLine_h)/magicNum_h)
+    beta = np.pi/2-np.arctan((midLine_h-objectRx)/magicNum_h)
+
+    print(data.get("Object")[i] + ": ")
+    #print("\tAlpha: " + str(np.degrees(alpha)))
+    #print("\tBeta: " + str(np.degrees(beta)))
+
+    z = l*((np.sin(alpha)*(np.sin(beta)))/np.sin(alpha+beta))
+
+    print("\tz: " + str(z))
+
+    objectLy = data.get("Ly")[i]
+    objectRy = data.get("Ry")[i]
+
+    x = leftCamPos+(z/np.tan(alpha))
+    #x2 = rightCamPos-(z/np.tan(beta))
+
+    print("\tX: " + str(x))
+    #print("\tX2: " + str(x2))
     print("")
