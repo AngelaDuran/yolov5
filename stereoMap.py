@@ -6,6 +6,14 @@ import matplotlib.image as mpimg
 
 ### FOV Method
 def depthFOV(data, leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, sensor_v):
+  ''' Example Parameters for Testing:
+        leftCamPos = 0.26 m
+        rightCamPos = 0.56 m
+        camHeight = 0.175 m
+        focalLength = 4.26 mm
+        sensor_h = 6.17 mm
+        sensor_v = 4.55 mm
+  '''
   # positions in meters
   # sensor dimensions and focal length in mm
 
@@ -61,6 +69,16 @@ def depthFOV(data, leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, se
 
 ### Ruler Method
 def depthRuler(data, leftCamPos, rightCamPos, camHeight, h_rulerDist, v_rulerDist, pixelsToCm_h, pixelsToCm_v):
+  ''' Example Parameters for Testing:
+        leftCamPos = 0.26 m
+        rightCamPos = 0.56 m
+        camHeight = 0.175 m
+        h_rulerDist = 0.40 m
+        v_rulerDist = 0   <- unused, doesn't matter
+        pixelsToCm_h = 75  
+        pixelsToCm_v = 0  <- unused, doesn't matter
+  '''
+  
   # positions and distances in meters
   
   # "Magic" conversion numbers
