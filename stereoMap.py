@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
 
 ### FOV Method
-def depthFOV(leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, sensor_v):
+def depthFOV(data, leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, sensor_v):
   # positions in meters
   # sensor dimensions and focal length in mm
 
@@ -60,7 +60,7 @@ def depthFOV(leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, sensor_v
     
 
 ### Ruler Method
-def depthRuler(leftCamPos, rightCamPos, camHeight, h_rulerDist, v_rulerDist, pixelsToCm_h, pixelsToCm_v):
+def depthRuler(data, leftCamPos, rightCamPos, camHeight, h_rulerDist, v_rulerDist, pixelsToCm_h, pixelsToCm_v):
   # positions and distances in meters
   
   # "Magic" conversion numbers
