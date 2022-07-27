@@ -4,29 +4,30 @@ import cv2
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
 
-def depthFOV(leftCamPos, rightCamPos, ):
-  ### FOV Method
-  # Less accurate (for some reason)
+### FOV Method
+def depthFOV(leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, sensor_v):
+  # positions in meters
+  # sensor dimensions and focal length in mm
 
-  h_FOV = np.arctan(36/(2*26))
-  v_FOV = np.arctan(24/(2*26))
+  # Regular focal length
+  h_FOV = np.arctan(sensor_h/(2*focalLength))
+  v_FOV = np.arctan(sensor_v/(2*focalLength))
 
   l = rightCamPos-leftCamPos # Camera separation
-
-  pixelsToCm = 75 
-  referenceRulerDist = 40
-  magicNum = pixelsToCm*referenceRulerDist; # "Magic" conversion number
-
+  
+  leftImg = cv2.imread('/content/left.jpg', 0)
+  rightImg = cv2.imread('/content/right.jpg', 0)
+  
   leftImg.shape
-  midLine = leftImg.shape[1]/2
+  midLine_h = leftImg.shape[1]/2
   midLine_v = leftImg.shape[0]/2
 
   for i in range(len(data.get("Object"))):
     objectLx = data.get("Lx")[i]
     objectRx = data.get("Rx")[i]
 
-    pre_alpha = np.arctan((objectLx-midLine)*h_FOV/midLine)
-    pre_beta = np.arctan((midLine-objectRx)*h_FOV/midLine)
+    pre_alpha = np.arctan((objectLx-midLine_h)*h_FOV/midLine)
+    pre_beta = np.arctan((midLine_h-objectRx)*h_FOV/midLine)
 
     alpha = np.pi/2-pre_alpha
     beta = np.pi/2-pre_beta
@@ -35,37 +36,23 @@ def depthFOV(leftCamPos, rightCamPos, ):
     #print("\tAlpha: " + str(np.degrees(alpha)))
     #print("\tBeta: " + str(np.degrees(beta)))
 
-    d = l*((np.sin(alpha)*(np.sin(beta)))/np.sin(alpha+beta))
-
     # z = depth
-    print("\tz: " + str(d))
+    z = l*((np.sin(alpha)*(np.sin(beta)))/np.sin(alpha+beta))
+    print("\tz: " + str(z))
 
     objectLy = data.get("Ly")[i]
     objectRy = data.get("Ry")[i]
 
-    x = leftCamPos+(d/np.tan(alpha))
+    x = leftCamPos+(z/np.tan(alpha))
     #x2 = rightCamPos-(d/np.tan(beta)) # confirmation with other angle
 
+    angleVL = np.arctan((midLine_v-objectLy)*v_FOV/midLine_v)
+    angleVR = np.arctan((midLine_v-objectRy)*v_FOV/midLine_v)
 
-  angleVL = np.arctan((midLine_v-objectLy)*v_FOV/midLine_v)
-  angleVR = np.arctan((midLine_v-objectRy)*v_FOV/midLine_v)
-  
-  # Future code in progress for depth calculation using vertical image shift
-  # dd = l*((np.sin(np.pi/2-angleHL)*(np.sin(np.pi/2-angleHR)))/np.sin(np.pi/2-angleHL+np.pi/2-angleHR))
-  # print(str(angleHL) +" "+str(angleHR))
-  # print(str(dd))
+    y = camHeight+(z*np.tan(angleVL))
 
-  # -674/angle = midline_v/v_FOV
-  # angle = -674*v_FOV/midline_v
+    print("\tX: " + str(x))
+    #print("\tX2: " + str(x2))
 
-  y = 17.5+(d*np.tan(angleVL))
-
-  print("\tX: " + str(x))
-  #print("\tX2: " + str(x2))
-
-  print("\ty: " + str(y))
-  print("")
-
-
-
-  print("")
+    print("\ty: " + str(y))
+    print("")
