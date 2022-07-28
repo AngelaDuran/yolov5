@@ -23,8 +23,12 @@ def depthFOV(data, leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, se
 
   l = rightCamPos-leftCamPos # Camera separation
   
-  leftImg = cv2.imread('/content/left.jpg', 0)
-  rightImg = cv2.imread('/content/right.jpg', 0)
+  #leftImg = cv2.imread('/content/left.jpg', 0)
+  #rightImg = cv2.imread('/content/right.jpg', 0)
+
+  #Angela Modifications
+  leftImg = cv2.imread('./data/labImages/left.jpg', 0)
+  rightImg = cv2.imread('./data/labImages/right.jpg', 0)
   
   leftImg.shape
   midLine_h = leftImg.shape[1]/2
@@ -34,8 +38,8 @@ def depthFOV(data, leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, se
     objectLx = data.get("Lx")[i]
     objectRx = data.get("Rx")[i]
 
-    pre_alpha = np.arctan((objectLx-midLine_h)*h_FOV/midLine)
-    pre_beta = np.arctan((midLine_h-objectRx)*h_FOV/midLine)
+    pre_alpha = np.arctan((objectLx-midLine_h)*h_FOV/midLine_h)
+    pre_beta = np.arctan((midLine_h-objectRx)*h_FOV/midLine_h)
 
     alpha = np.pi/2-pre_alpha
     beta = np.pi/2-pre_beta

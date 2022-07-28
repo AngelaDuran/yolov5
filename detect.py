@@ -45,18 +45,16 @@ from utils.general import (LOGGER, check_file, check_img_size, check_imshow, che
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
 
-<<<<<<< HEAD
+#Angela Additions
+import userInput
+import stereoMap
+
 coordinateData = {
 "Object": [],
 "Lx": [],
 "Ly": [],
 "Rx": [],
 "Ry": []
-=======
-stuff = {
-    'Avo': [1,2,3],
-    'Bio': [4,5,6]
->>>>>>> origin
 }
 
 @torch.no_grad()
@@ -264,11 +262,17 @@ def run(
         coordinateData['Rx'].pop(x)
         coordinateData['Ry'].pop(x)
 
-
-
-
     LOGGER.info("Dictionary Bellow")
     LOGGER.info(coordinateData)
+
+    #Integration with Mark Code
+    paramList = userInput.stereoParam()
+    stereoMap.depthFOV(coordinateData, paramList[0], paramList[1], paramList[2], paramList[3], paramList[4], paramList[5])
+
+
+
+
+
      
 
 
