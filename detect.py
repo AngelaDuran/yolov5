@@ -45,12 +45,18 @@ from utils.general import (LOGGER, check_file, check_img_size, check_imshow, che
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, time_sync
 
+<<<<<<< HEAD
 coordinateData = {
 "Object": [],
 "Lx": [],
 "Ly": [],
 "Rx": [],
 "Ry": []
+=======
+stuff = {
+    'Avo': [1,2,3],
+    'Bio': [4,5,6]
+>>>>>>> origin
 }
 
 @torch.no_grad()
