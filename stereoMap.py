@@ -88,10 +88,6 @@ def depthRuler(data, leftCamPos, rightCamPos, camHeight, h_rulerDist, v_rulerDis
   # "Magic" conversion numbers
   magicNum_h = pixelsToCm_h*100*h_rulerDist
   magicNum_v = pixelsToCm_v*100*v_rulerDist
-  
-  # Regular focal length
-  h_FOV = np.arctan(sensor_h/(2*focalLength))
-  v_FOV = np.arctan(sensor_v/(2*focalLength))
 
   l = rightCamPos-leftCamPos # Camera separation
   
