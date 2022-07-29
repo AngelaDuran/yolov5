@@ -91,8 +91,8 @@ def depthRuler(data, leftCamPos, rightCamPos, camHeight, h_rulerDist, v_rulerDis
 
   l = rightCamPos-leftCamPos # Camera separation
   
-  leftImg = cv2.imread('/content/left.jpg', 0)
-  rightImg = cv2.imread('/content/right.jpg', 0)
+  leftImg = cv2.imread('./data/labImages/left1.jpg', 0)
+  rightImg = cv2.imread('./data/labImages/left1.jpg', 0)
   
   leftImg.shape
   midLine_h = leftImg.shape[1]/2
