@@ -267,7 +267,9 @@ def run(
 
     #Integration with Mark Code
     paramList = userInput.stereoParam()
-    stereoMap.depthFOV(coordinateData, paramList[0], paramList[1], paramList[2], paramList[3], paramList[4], paramList[5])
+    #stereoMap.depthFOV(coordinateData, paramList[0], paramList[1], paramList[2], paramList[3], paramList[4], paramList[5])
+    
+    stereoMap.depthRuler(coordinateData, 0.26, 0.56, 0.175, 0.4, 0, 75, 0)
 
 
 

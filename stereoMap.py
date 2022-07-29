@@ -27,8 +27,8 @@ def depthFOV(data, leftCamPos, rightCamPos, camHeight, focalLength, sensor_h, se
   #rightImg = cv2.imread('/content/right.jpg', 0)
 
   #Angela Modifications
-  leftImg = cv2.imread('./data/labImages/left.jpg', 0)
-  rightImg = cv2.imread('./data/labImages/right.jpg', 0)
+  leftImg = cv2.imread('./data/labImages/left1.jpg', 0)
+  rightImg = cv2.imread('./data/labImages/right1.jpg', 0)
   
   leftImg.shape
   midLine_h = leftImg.shape[1]/2
