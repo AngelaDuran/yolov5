@@ -266,8 +266,17 @@ def run(
     LOGGER.info(coordinateData)
 
     #Integration with Mark Code
-    paramList = userInput.stereoParam()
-    stereoMap.depthFOV(coordinateData, paramList[0], paramList[1], paramList[2], paramList[3], paramList[4], paramList[5])
+    choice = int(input("Enter 1 for FOV mode, Enter 2 for Ruler mode: "))
+
+    if choice == 1:
+        paramList = userInput.stereoParam()
+        stereoMap.depthFOV(coordinateData, paramList[0], paramList[1], paramList[2], paramList[3], paramList[4], paramList[5])
+    elif choice == 2:
+        rulerList = userInput.rulerParam()
+        stereoMap.depthRuler(coordinateData, rulerList[0], rulerList[1], rulerList[2], rulerList[3], rulerList[4], rulerList[5], rulerList[6])
+    else:
+        print("Error: Invalid Entry!")
+
 
 
 
