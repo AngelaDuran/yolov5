@@ -12,7 +12,7 @@ def stereoParam():
 
     leftCamPos = float(input("Enter Left Camera Position in m: "))
     rightCamPos = float(input("Enter Right Camera Position in m: "))
-    camHeight = float(input("Enter Camera Height in mm: "))
+    camHeight = float(input("Enter Camera Height in m: "))
     focalLength = float(input("Enter Focal Length in mm: "))
     sensor_h = float(input("Please enter horizontal sensor length in mm: "))
     sensor_v = float(input("Please enter vertical sensor length in mm: "))
