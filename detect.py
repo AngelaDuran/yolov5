@@ -172,6 +172,8 @@ def run(
                     #adding bbox center coordinates (ANGELA EDITS)
                     c1,c2 = (int(xyxy[0]), int(xyxy[1])), (int(xyxy[2]), int(xyxy[3]))
                     center_point = round((c1[0]+c2[0])/2), round((c1[1]+c2[1])/2)
+                                            #(x - coordinate,     y - coordinate)
+
                     #LOGGER.info(center_point)
 
                     
@@ -185,7 +187,8 @@ def run(
                         c = int(cls)  # integer class
                         label = None if hide_labels else (names[c] if hide_conf else f'{names[c]} {conf:.2f}')
 
-                        labelDict = label.split()[0]
+                        #Angela Edits
+                        labelDict = label.split()[0] #grabs the label name from YOLO
                         
                         #coordinateData is the dictionary holding all data, assumes two images are processed
 

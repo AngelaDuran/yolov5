@@ -1,3 +1,4 @@
+#Author: Angela Duran
 #want user to specify camera information here
 '''
 leftCamPos = 0.26 
